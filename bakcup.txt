@@ -1,0 +1,17 @@
+var lyricsData = [
+  { text: " Buenas noches Yan", time: 2 },/* 
+  { text: "crecía una flor especial llamada Nebu.", time: 8 },
+  { text: "Nebu no era como las demás flores.", time: 15 },
+  { text: "Tenía pétalos dorados que brillaban suavemente con la luz de las estrellas.", time: 24 },
+  { text: "Cada noche, cuando el cielo se llenaba de estrellas, ", time: 34 },
+  { text: "Nebu se iluminaba aún más. ", time: 39 },
+  { text: "Parecía como si absorbiera la luz celestial.", time: 43 },
+  { text: "Los animales del bosque venían a admirar su resplandor.", time: 50 },
+  { text: "La flor parecía danzar al ritmo de la brisa nocturna.", time: 58 },
+  { text: "Una noche, una pequeña mariposa se posó sobre Nebu.", time: 65 },
+  { text: "Le preguntó: ¿Por qué brillas tanto?", time: 72 },
+  { text: "Nebu respondió con una sonrisa:", time: 77 },
+  { text: "Brillo para recordarles a todos que, incluso en la oscuridad, siempre hay luz y belleza.", time: 82 },
+  { text: "Desde entonces, la luz de Nebu guiaba a los animales del bosque en sus noches más oscuras.", time: 92 },
+  { text: "Todos aprendieron que la belleza puede iluminar incluso los momentos más sombríos.", time: 102 }, */
+];
