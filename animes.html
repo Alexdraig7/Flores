@@ -1,0 +1,117 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/anim.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet">
+    <title>Estrellas</title>
+    <script type="text/javascript" async
+      src="https://tenor.com/embed.js"></script>
+  </head>
+  <body>
+    <audio id="backgroundAudio" loop>
+      <source src="sound/tema.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="pink-button" id="playButton"><span>✨ Animate
+        ✨</span></button>
+
+    <div id="lyrics"></div>
+    <div id="starContainer"></div>
+
+  <div class="gif-carousel">
+    <div class="gif-frame tenor-gif-embed" data-postid="12582080681178852372" data-share-method="host" data-aspect-ratio="1.76596" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="11012498467213152606" data-share-method="host" data-aspect-ratio="1.76596" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="7058247589785830147" data-share-method="host" data-aspect-ratio="0.803213" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="27451705" data-share-method="host" data-aspect-ratio="1.86047" data-width="100%"></div>
+  </div>
+
+  <div class="gif-carousel">
+    <div class="gif-frame tenor-gif-embed" data-postid="18249058" data-share-method="host" data-aspect-ratio="0.8375" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="19228261" data-share-method="host" data-aspect-ratio="2" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="12546889" data-share-method="host" data-aspect-ratio="1.37931" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="13762951400085602403" data-share-method="host" data-aspect-ratio="1.77857" data-width="100%"></div>
+  </div>
+
+  <div class="gif-carousel">
+    <div class="gif-frame tenor-gif-embed" data-postid="7964025742412413011" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="21300109" data-share-method="host" data-aspect-ratio="1.66667" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="26846692" data-share-method="host" data-aspect-ratio="1.34454" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="17968846" data-share-method="host" data-aspect-ratio="1.3278" data-width="100%"></div>
+    <div class="gif-frame tenor-gif-embed" data-postid="21709867" data-share-method="host" data-aspect-ratio="1.34454" data-width="100%"></div>
+  </div>
+
+    <script>
+      
+    const lyricsData = [
+      { text: "La guitarra empieza suave... como Catalina cuando escribe algo triste y no lo parece.", time: 2 },
+      { text: "'Hoy ya no espero nada más de ti' — bueno, al menos la canción lo acepta con dignidad. Catalina lo narraría con elegancia.", time: 15 },
+      { text: "Ese ritmo lento parece el mismo que usa para dejarte pensando media hora con solo una línea.", time: 33 },
+      { text: "Y de pronto la letra golpea. Así como cuando lees algo suyo.", time: 52 },
+      { text: "No es que lo diga en serio, pero si alguien entiende el arte de escribir con alma, es ella.", time: 70 },
+      { text: "Final suave. Como diciendo mucho sin gritar. Como Catalina, básicamente.", time: 98 }
+    ];
+
+    const audio = document.getElementById("backgroundAudio");
+    const lyrics = document.getElementById("lyrics");
+    const playBtn = document.getElementById("playButton");
+    const gifFrames = document.querySelectorAll('.gif-frame');
+
+    function updateLyrics() {
+      const time = Math.floor(audio.currentTime);
+      const currentLine = lyricsData.find(line => time >= line.time && time < line.time + 6);
+
+      if (currentLine) {
+        const fadeInDuration = 0.1;
+        const opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
+        lyrics.style.opacity = opacity;
+        lyrics.innerHTML = currentLine.text;
+      } else {
+        lyrics.style.opacity = 0;
+        lyrics.innerHTML = "";
+      }
+    }
+
+    setInterval(updateLyrics, 1200);
+
+    function playAudio() {
+      audio.volume = 0.5;
+      audio.play()
+        .then(() => {
+          playBtn.style.display = 'none';
+          iniciarCarrusel();
+        })
+        .catch(error => console.error('Error al reproducir el audio:', error));
+    }
+
+    playBtn.addEventListener('click', () => {
+      playAudio();
+    });
+
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * window.innerHeight}px`;
+      star.style.left = `${Math.random() * window.innerWidth}px`;
+      document.getElementById('starContainer').appendChild(star);
+      setTimeout(() => star.remove(), 2000);
+    }
+
+    setInterval(createStar, 250);
+
+    function iniciarCarrusel() {
+      let index = 0;
+      gifFrames.forEach((gif, i) => gif.style.opacity = '0');
+      gifFrames[0].style.opacity = '1';
+
+      setInterval(() => {
+        gifFrames[index].style.opacity = '0';
+        index = (index + 1) % gifFrames.length;
+        gifFrames[index].style.opacity = '1';
+      }, 4000);
+    }
+  </script>
+  </body>
+</html>

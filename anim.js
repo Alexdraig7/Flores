@@ -1,30 +1,22 @@
-// Sincronizar las letras con la canción
-var audio = document.querySelector("audio");
-var lyrics = document.querySelector("#lyrics");
-
-// Array de objetos que contiene cada línea y su tiempo de aparición en segundos
-var lyricsData = [
-  { text: " Buenas noches", time: 4 },
-  { text: "Feliz 21 de Marzo.", time: 10 },
+const lyricsData = [
+  { text: "Buenas noches", time: 4 },
+  { text: "Feliz 21 de Marzo.", time: 10 }
 ];
 
-// Animar las letras
+const audio = document.getElementById("backgroundAudio");
+const lyrics = document.getElementById("lyrics");
+const playBtn = document.getElementById("playButton");
+
 function updateLyrics() {
-  var time = Math.floor(audio.currentTime);
-  var currentLine = lyricsData.find(
-    (line) => time >= line.time && time < line.time + 6
-  );
+  const time = Math.floor(audio.currentTime);
+  const currentLine = lyricsData.find(line => time >= line.time && time < line.time + 6);
 
   if (currentLine) {
-    // Calcula la opacidad basada en el tiempo en la línea actual
-    var fadeInDuration = 0.1; // Duración del efecto de aparición en segundos
-    var opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
-
-    // Aplica el efecto de aparición
+    const fadeInDuration = 0.1;
+    const opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
     lyrics.style.opacity = opacity;
     lyrics.innerHTML = currentLine.text;
   } else {
-    // Restablece la opacidad y el contenido si no hay una línea actual
     lyrics.style.opacity = 0;
     lyrics.innerHTML = "";
   }
@@ -32,16 +24,24 @@ function updateLyrics() {
 
 setInterval(updateLyrics, 1200);
 
-//funcion titulo
-// Función para ocultar el título después de 216 segundos
-function ocultarTitulo() {
-  var titulo = document.querySelector(".titulo");
-  titulo.style.animation =
-    "fadeOut 3s ease-in-out forwards"; /* Duración y función de temporización de la desaparición */
-  setTimeout(function () {
-    titulo.style.display = "none";
-  }, 3000); // Espera 3 segundos antes de ocultar completamente
+function playAudio() {
+  audio.volume = 0.2;
+  audio.play()
+    .then(() => {
+      playBtn.style.display = 'none';
+    })
+    .catch(error => console.error('Error al reproducir el audio:', error));
 }
 
-// Llama a la función después de 216 segundos (216,000 milisegundos)
-setTimeout(ocultarTitulo, 216000);
+playBtn.addEventListener('click', playAudio, { once: true });
+
+function createStar() {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.top = `${Math.random() * window.innerHeight}px`;
+  star.style.left = `${Math.random() * window.innerWidth}px`;
+  document.getElementById('starContainer').appendChild(star);
+  setTimeout(() => star.remove(), 2000);
+}
+
+setInterval(createStar, 250);
